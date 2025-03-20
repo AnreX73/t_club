@@ -1,0 +1,25 @@
+{% extends 'therapy/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+ <a href='{% url "index" %}'>
+    <h1>home</h1>
+  </a>
+
+<div class="container">
+<h1>THERAPY CLUB <span>(вход)</span></h1>
+{% crispy form %}
+    <hr>
+   <h2>Не зарегестрированы ?</h2>
+<a href='{% url "register" %}'>
+    <h1>registration</h1>
+  </a>
+   <h2>Забыли пароль?</h2>
+<a href='{% url "user_password_reset" %}'>
+    <h1>восстановим его</h1>
+  </a>
+</div>
+
+{% endblock %}

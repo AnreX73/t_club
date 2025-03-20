@@ -1,0 +1,20 @@
+{% extends 'therapy/base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+{% if user.is_authenticated %}
+        <a style="color:teal;" href="{% url 'profile' %}">{{ user }}</a>
+        {% else %}
+        <a href='{% url "user_login" %}'>
+        <h1>вход</h1>
+        </a>
+
+
+{% endif %}
+
+
+
+
+{% endblock %}
