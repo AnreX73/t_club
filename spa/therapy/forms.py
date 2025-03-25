@@ -10,7 +10,7 @@ from django.contrib.auth.forms import (
 from django.utils.translation import gettext_lazy as _
 from django import forms
 
-from therapy.models import Bid
+from therapy.models import Bid, BidStatus
 
 User = get_user_model()
 
@@ -76,6 +76,20 @@ class UserPasswordResetForm(PasswordResetForm):
 
 
 class AddBidForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.add_input(Submit('submit', 'Создать заявку'))
+    
+    def save(self, commit=True):
+        # Сначала сохраняем объект, чтобы у него появился id
+        instance = super().save(commit=commit)
+        
+        # Затем устанавливаем связи many-to-many
+        if commit:
+            instance.statuses.set([1])  # Устанавливаем статус с id=1
+        return instance
+    
     class Meta:
         model = Bid
         fields = ('service', 'date', 'worker', 'is_chaild_bid', 'date_of_birth', 'sex', 'note')

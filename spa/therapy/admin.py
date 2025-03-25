@@ -5,9 +5,11 @@ from therapy.models import (
     User,
     ServicesCategory,
     Services,
+    BidStatus,
     Bid,
     Abonements,
-    WorkerSchedule, AbonementBid,
+    WorkerSchedule,
+    AbonementBid,
 )
 
 
@@ -27,9 +29,12 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(ServicesCategory)
 class ServicesCategoryAdmin(admin.ModelAdmin):
-    list_display = ("id", "name",)
+    list_display = (
+        "id",
+        "name",
+    )
     prepopulated_fields = {"slug": ("name",)}
-    ordering = ('id',)
+    ordering = ("id",)
 
 
 @admin.register(Services)
@@ -46,9 +51,21 @@ class ServicesAdmin(admin.ModelAdmin):
     ordering = ("category", "name")
 
 
+@admin.register(BidStatus)
+class BidStatusAdmin(admin.ModelAdmin):
+    list_display = ("id",)
+
+
 @admin.register(Bid)
 class BidAdmin(admin.ModelAdmin):
-    pass
+    list_display = (
+        "id",
+        "user",
+        "worker",
+        "service",
+        "date",
+        
+    )
 
 
 @admin.register(Abonements)

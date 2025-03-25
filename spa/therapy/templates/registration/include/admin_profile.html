@@ -3,7 +3,7 @@
 <span><b>дата</b> {{ client.date | date:"d.m.Y " }}</span>
 
 <span><b>время</b> {{ client.date | time:"H:i"}}</span>
-<p>{{ client.status }}</p>
+<p>{% for status in client.statuses.all %}{{ status }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
 <p>{{ client.worker }}</p>
 <hr>
 {% endfor %}

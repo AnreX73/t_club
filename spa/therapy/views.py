@@ -2,7 +2,8 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import (
     LoginView,
     PasswordResetView,
-    PasswordResetDoneView, PasswordResetConfirmView,
+    PasswordResetDoneView,
+    PasswordResetConfirmView,
 )
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect, HttpRequest
@@ -15,7 +16,13 @@ from django.views.generic.edit import UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from therapy.models import *
-from .forms import UserCreateForm, ChangeUserlnfoForm, UserLoginForm, UserPasswordResetForm, AddBidForm
+from .forms import (
+    UserCreateForm,
+    ChangeUserlnfoForm,
+    UserLoginForm,
+    UserPasswordResetForm,
+    AddBidForm,
+)
 
 
 def index(request):
@@ -93,9 +100,15 @@ class UserPasswordResetDone(PasswordResetDoneView):
     template_name = "registration/user_password_reset_done.html"
 
 
-@login_required(login_url="/register/")
+@login_required(login_url="/user_login/")
 def add_bid(request):
-    cotext = {
-        'form': AddBidForm()
-    }
-    return render(request, context=cotext, template_name="therapy/add_bid.html")
+    if request.method == "POST":
+        form = AddBidForm(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+            user = request.user
+            form.instance.user = user
+            form.save()
+            return HttpResponseRedirect(reverse_lazy("profile"))
+
+    return render(request, "therapy/add_bid.html", {"form": AddBidForm()})

@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
 
-
-
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 
 <head>
     <meta charset="UTF-8">
@@ -11,18 +9,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link type="text/css" rel="stylesheet" href="{% static 'therapy/css/bootstrap.min.css' %}" />
-
-
+    <link type="text/css" rel="stylesheet" href="{% static 'therapy/css/bootstrap.css' %}" />
+    {% block styles %}
+    {% endblock styles %}
 </head>
 
 <body>
+    <div x-data="{ darkMode: localStorage.getItem('darkMode') === 'true' }" x-init="document.documentElement.setAttribute('data-bs-theme', darkMode ? 'dark' : 'light')">
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" 
+                   x-model="darkMode" 
+                   @click="
+                       document.documentElement.setAttribute('data-bs-theme', darkMode ? 'dark' : 'light');
+                       localStorage.setItem('darkMode', darkMode);
+                   ">
+            <label class="form-check-label" for="flexSwitchCheckDefault">светлая / темная</label>
+        </div>
+    </div>
 
-        {% block content %}
+    {% block content %}
+    {% endblock content %}
 
-        {% endblock content %}
-
-
+    <script type="text/javascript" defer src='{% static "therapy/js/htmx.js" %}'></script>
+    <script type="text/javascript" defer src='{% static "therapy/js/alpine.js" %}'></script>
+    {% block scripts %}
+    {% endblock scripts %}
 </body>
 
 </html>

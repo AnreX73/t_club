@@ -56,13 +56,17 @@ class Services(models.Model):
         verbose_name_plural = 'Услуги'
 
 
-class BidStatus(models.TextChoices):
-    RAW = 'CREATED', 'Создана'
-    ADMINCONFIRMED = 'CONFIRMED1', 'Подтверждена администратором'
-    WORKERCONFIRMED = 'CONFIRMED2', 'Подтверждена специалистом'
-    REJECTED = 'REJECTED', 'Отклонена'
-    PAID = 'PAID', 'Оплачена'
-    COMLETED = 'COMPLETED', 'Завершена'
+class BidStatus(models.Model):
+    code = models.CharField(max_length=50, unique=True, verbose_name='Код статуса')
+    name = models.CharField(max_length=100, verbose_name='Название статуса')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Статус заявки'
+        verbose_name_plural = 'Статусы заявок'
+        ordering = ['id']
 
 
 class Bid(models.Model):
@@ -77,8 +81,7 @@ class Bid(models.Model):
     is_chaild_bid = models.BooleanField(default=False, verbose_name='заявка для ребенка')
     date_of_birth = models.DateField(verbose_name='Дата рождения клиента', blank=True, null=True)
     sex = models.CharField(max_length=10, choices=SEX, default='male', verbose_name='Пол')
-    status = models.CharField(max_length=50, choices=BidStatus.choices, default=BidStatus.RAW,
-                              verbose_name='статус заказа')
+    statuses = models.ManyToManyField(BidStatus, verbose_name='Статусы заявки', default='1')
     note = CKEditor5Field('Примечание', config_name='extends', blank=True, null=True)
 
     class Meta:

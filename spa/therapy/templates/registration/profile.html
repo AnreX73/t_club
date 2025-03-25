@@ -6,6 +6,7 @@
 {% block content %}
 <h2> Это ваша страница {{ user.first_name }} вы {{ user.get_role_display }} </h2>
 <a href="{% url 'update_user_info'  %}">редактировать профиль</a>
+<a href="{% url 'add_bid'  %}">создать заявку</a>
 <hr>
 {% if user.role == 2 %}
 <div class="my_class">
