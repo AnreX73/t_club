@@ -4,11 +4,13 @@
 
 
 {% block content %}
+<h2>THERAPY CLUB</h2>
+<hr>
 {% if user.is_authenticated %}
-        <a style="color:teal;" href="{% url 'profile' %}">{{ user }}</a>
+        <a style="color:teal;" href="{% url 'profile' %}">профиль пользователя {{ user }}</a>
         {% else %}
         <a href='{% url "user_login" %}'>
-        <h1>вход</h1>
+        <h3>вход в профиль</h3>
         </a>
 
 

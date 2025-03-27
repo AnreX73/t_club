@@ -32,9 +32,11 @@ class ServicesCategoryAdmin(admin.ModelAdmin):
     list_display = (
         "id",
         "name",
+        'is_public',
     )
     prepopulated_fields = {"slug": ("name",)}
     ordering = ("id",)
+    list_editable = ('is_public',)
 
 
 @admin.register(Services)
@@ -53,7 +55,9 @@ class ServicesAdmin(admin.ModelAdmin):
 
 @admin.register(BidStatus)
 class BidStatusAdmin(admin.ModelAdmin):
-    list_display = ("id",)
+    list_display = ("id", "code", "name")
+    search_fields = ("code", "name")
+    list_display_links = ("id", "code", "name")
 
 
 @admin.register(Bid)

@@ -1,3 +1,4 @@
+from cProfile import label
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, Submit
 from django.contrib.auth import get_user_model
@@ -21,19 +22,28 @@ class UserCreateForm(UserCreationForm):
         super().__init__(*args, **kwargs)
 
         self.helper = FormHelper(self)
-        self.helper.add_input(Submit('submit', 'Зарегистрироваться'))
+        self.helper.add_input(Submit("submit", "Зарегистрироваться"))
 
     phone = forms.CharField(max_length=12, required=False)
     photo = forms.ImageField(required=False)
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ("username", "email", "first_name", 'last_name', "phone", "password1", "password2", 'photo',
-                  )
+        fields = (
+            "username",
+            "email",
+            "first_name",
+            "last_name",
+            "phone",
+            "password1",
+            "password2",
+            "photo",
+        )
         widgets = {
-            'sex': forms.RadioSelect(),
-            'date_of_birth': forms.DateInput(attrs={'type': 'date',
-                                                    'max': datetime.now().date()}),
+            "sex": forms.RadioSelect(),
+            "date_of_birth": forms.DateInput(
+                attrs={"type": "date", "max": datetime.now().date()}
+            ),
         }
 
 
@@ -51,11 +61,10 @@ class UserLoginForm(AuthenticationForm):
         self.helper.layout = Layout(
             Fieldset(
                 "Введите логин и пароль",
-                'username',
-                'password',
-
+                "username",
+                "password",
             ),
-            Submit('submit', 'Войти'),
+            Submit("submit", "Войти"),
         )
 
 
@@ -68,28 +77,55 @@ class UserPasswordResetForm(PasswordResetForm):
         self.helper.layout = Layout(
             Fieldset(
                 "Введите адрес электронной почты",
-                'email',
-
+                "email",
             ),
-            Submit('submit', 'отправить'),
+            Submit("submit", "отправить"),
         )
 
 
 class AddBidForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields["service"].empty_label = "выберите услугу"
+        self.fields["worker"].empty_label = "выберите специалиста"
         self.helper = FormHelper(self)
-        self.helper.add_input(Submit('submit', 'Создать заявку'))
-    
+        self.helper.add_input(Submit("submit", "Создать заявку"))
+
     def save(self, commit=True):
         # Сначала сохраняем объект, чтобы у него появился id
         instance = super().save(commit=commit)
-        
+
         # Затем устанавливаем связи many-to-many
         if commit:
             instance.statuses.set([1])  # Устанавливаем статус с id=1
         return instance
-    
+
     class Meta:
         model = Bid
-        fields = ('service', 'date', 'worker', 'is_chaild_bid', 'date_of_birth', 'sex', 'note')
+        fields = (
+            "service",
+            "date",
+            "worker",
+            "is_chaild_bid",
+            "date_of_birth",
+            "sex",
+            "note",
+        )
+        widgets = {
+            "sex": forms.RadioSelect(),
+            "date": forms.DateInput(
+                attrs={"type": "date", "min": datetime.now().date()}
+            ),
+            "date_of_birth": forms.DateInput(
+                attrs={"type": "date", "max": datetime.now().date()}
+            ),
+            
+        }
+        help_texts = {
+            "date": _("Выберите дату в формате ДД-ММ-ГГГГ"),
+            "date_of_birth": _("Выберите дату в формате ДД-ММ-ГГГГ"),
+        }
+        labels = {
+            "note": _("Дополнительная информация (если есть)"),
+        }
+        

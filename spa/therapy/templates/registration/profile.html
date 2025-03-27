@@ -1,12 +1,15 @@
-{% extends 'therapy/base.html' %}
+{% extends 'therapy/base.html'%}
+
 {% load static %}
+
 {% load therapy_tags %}
 
 
 {% block content %}
-<h2> Это ваша страница {{ user.first_name }} вы {{ user.get_role_display }} </h2>
-<a href="{% url 'update_user_info'  %}">редактировать профиль</a>
-<a href="{% url 'add_bid'  %}">создать заявку</a>
+<h2> Профиль{{ user.first_name }} </h2> <span>({{ user.get_role_display }} )</span>
+
+<div><a href="{% url 'update_user_info'  %}">редактировать профиль</a></div>
+
 <hr>
 {% if user.role == 2 %}
 <div class="my_class">
@@ -18,8 +21,12 @@
 
     {% admin_profile %}
 </div>
-
+{% else %}
+<div>
+    {% customer_profile %}
+</div>
 {% endif %}
+
 <a  href="{% url 'logout' %}">ВЫЙТИ  </a>
 
 {% endblock %}

@@ -15,6 +15,7 @@
 </head>
 
 <body>
+    тема
     <div x-data="{ darkMode: localStorage.getItem('darkMode') === 'true' }" x-init="document.documentElement.setAttribute('data-bs-theme', darkMode ? 'dark' : 'light')">
         <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" 
@@ -23,7 +24,7 @@
                        document.documentElement.setAttribute('data-bs-theme', darkMode ? 'dark' : 'light');
                        localStorage.setItem('darkMode', darkMode);
                    ">
-            <label class="form-check-label" for="flexSwitchCheckDefault">светлая / темная</label>
+            <label class="form-check-label" for="flexSwitchCheckDefault">темная / светлая</label>
         </div>
     </div>
 
