@@ -54,18 +54,20 @@ class ChangeUserlnfoForm(UserCreateForm):
 
 # форма входа пользователя
 class UserLoginForm(AuthenticationForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
 
-        self.helper = FormHelper(self)
-        self.helper.layout = Layout(
-            Fieldset(
-                "Введите логин и пароль",
-                "username",
-                "password",
-            ),
-            Submit("submit", "Войти"),
-        )
+    #     self.helper = FormHelper(self)
+    #     self.helper.layout = Layout(
+    #         Fieldset(
+    #             "Введите логин и пароль",
+    #             "username",
+    #             "password",
+    #         ),
+    #         Submit("submit", "Войти"),
+        # )
+    username = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class': 'input'}), )
+    password = forms.CharField(label=_("password"), widget=forms.PasswordInput(attrs={'class': 'input'}), )   
 
 
 # форма сброса пароля

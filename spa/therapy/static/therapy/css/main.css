@@ -1,0 +1,216 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat&family=Pacifico&display=swap');
+/* RGBA коды */
+
+
+/*обнуление*/
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+:focus,
+:active {
+  outline: none;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+nav,
+footer,
+header,
+aside {
+  display: block;
+}
+
+html,
+body {
+  scroll-behavior: smooth;
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  font-size: 14px;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+input,
+button,
+textarea {
+  font-family: inherit;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+a,
+a:visited {
+  text-decoration: none;
+  
+}
+
+a:hover {
+  text-decoration: none;
+
+}
+
+ul li {
+  list-style: none;
+}
+
+img {
+  vertical-align:center;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: 400;
+}
+/*конец обнуление*/
+
+
+h1{
+    font-size:2.2rem;
+    }
+    h2{
+    font-size:1.8rem;
+    }
+    h3{
+    font-size:1.5rem;
+    }
+    h4{
+      font-size: 1.3rem;
+    }
+    h5{
+      font-size: 1.1rem;
+    }
+    h6{
+      font-size: 0.8rem;
+    }
+    hr{  
+      display: block;
+      border-bottom: 1px dotted blueviolet;
+      width: 80%;
+      margin: 1rem auto;
+      margin-top: 2rem;
+    }
+    
+    .spacer{
+      height: var(--header-height);
+    }
+    
+    .price-mark:after {
+      content: " \20BD";
+      font-family: 'PT Sans', serif;
+    }
+    /*переменные css*/
+    :root{
+      --light-teal:rgb(238, 255, 255);
+      --content-size:1280px;
+      --wild-text: 	#D50000;
+      --header-height:80px;
+      --complex-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+      7px 7px 20px 0px rgba(0,0,0,.1),
+      4px 4px 5px 0px rgba(0,0,0,.1);
+      --light-gradient:linear-gradient(90deg, #EAF5F7 1%, #F9F6CF 51%, #F1FBFF 99%, #F1FBFF 100%);
+      --hover-gradient:linear-gradient(180deg, #EAF5F7 1%, #F9F6CF 51%, #F1FBFF 99%, #F1FBFF 100%);
+    }
+    
+    body {
+    margin: 0;
+    font-family: 'Oswald', sans-serif;
+    color:#3f3f3f;
+    height:auto;
+    background:var(--light-gradient);
+    overflow-x: hidden;
+    }
+
+      /*общая оболочка*/
+.all-content-wrapper{
+    position: relative;
+    min-height: calc(100vh - 80px);
+    max-width:var(--content-size);
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    padding-top: 15px;
+    align-items: center;
+    
+    }
+    main, .container{
+        padding: 4px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+
+    }
+  
+
+    .custom_input {
+        display: flex;
+        align-items: center;
+        position: relative;
+        max-width: 100%;
+    }
+    
+    .input {
+        font-size: 18px;
+        padding: 5px 10px;
+        width: 100%;
+        padding-left: 35px;
+        outline: none;
+        background: #D9DCC1;
+        color: #000000;
+        border: 4px solid #FFFFFF;
+        border-radius: 5px;
+        box-shadow: 3px 3px 2px 0px #E2E2E2;
+        transition: .3s ease;
+    }
+    
+    .input:focus {
+        background: #F2F2BE;
+        border: 2px solid #FFFFFF;
+        border-radius: 10px;
+    }
+    
+    .input::placeholder {
+        color: #ABABAB;
+    }
+    
+    .svg_icon {
+        position: absolute;
+        left: 10px;
+        fill: #9B5ADC;
+        width: 18px;
+        height: 18px;
+    }
